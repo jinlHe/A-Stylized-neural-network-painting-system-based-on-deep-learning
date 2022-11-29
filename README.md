@@ -5,11 +5,6 @@
 
 ![](./gallery/gif_teaser_1.gif)
 
-### One-min video result
-
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/oerb-nwrXhk/0.jpg)](https://www.youtube.com/watch?v=oerb-nwrXhk)
-
-
 
 ## Requirements
 
