@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  
+
+  <link rel="shortcut icon"
+        href="favicon.5a94ee72b9d3.ico" tppabs="https://replicate.com/static/favicon.5a94ee72b9d3.ico">
+
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="RSS"
+        href="/blog/rss">
+  <link rel="alternate"
+        type="application/atom+xml"
+        title="Atom"
+        href="/blog/atom">
+
+  
+
+  <script type="text/javascript">
+    /* beautify ignore:start */
+  
+!function(){var e=window.rudderanalytics=window.rudderanalytics||[];e.methods=["load","page","track","identify","alias","group","ready","reset","getAnonymousId","setAnonymousId"],e.factory=function(t){return function(){var r=Array.prototype.slice.call(arguments);return r.unshift(t),e.push(r),e}};for(var t=0;t<e.methods.length;t++){var r=e.methods[t];e[r]=e.factory(r)}e.loadJS=function(e,t){var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="rudder-analytics.min.js"/*tpa=https://cdn.rudderlabs.com/v1/rudder-analytics.min.js*/;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a)},e.loadJS(),
+e.load("23hcIqxUfr6QoeygnbNdOMvIZWG","https://replicateor.dataplane.rudderstack.com"),
+e.setAnonymousId("02a6e035-6770-4bb3-b435-754f48c97c08"),
+
+e.page()}();
+  
+
+    function replicate_track(event, properties) {
+      
+        var options = {};
+        
+
+        rudderanalytics.track(event, properties, options);
+      
+    }
+    /* beautify ignore:end */
+
+  </script>
+
+  <title>jiupinjia/stylized-neural-painting-oil – API reference</title>
+
+  <link rel="stylesheet"
+        href="index.0856b7bed102.css" tppabs="https://replicate.com/static/dist/index.0856b7bed102.css">
+
+  
+
+
+<meta name="twitter:card"
+      content="summary_large_image">
+
+
+<meta name="twitter:site"
+      content="@replicatehq">
+
+
+
+<meta name="twitter:image"
+      content="https://replicate.delivery/mgxm/7350b737-c4f6-4bef-a4c5-e365a5cd3884/out.gif">
+
+
+
+
+<meta name="twitter:title"
+      content="jiupinjia/stylized-neural-painting-oil – Replicate">
+<meta name="twitter:description"
+      content="Image to oil painting generation">
+
+<meta name="description"
+      content="Image to oil painting generation">
+
+</head>
+
+
+
+<body class="font-sans overflow-y-scroll antialiased flex min-h-screen flex-col">
+  
+
+  
+
+  <div class="p-lh px-2lh">
+    <div>
+  <div class="md:flex">
+    <h1 class="text-base">
+      <a href="javascript:if(confirm(%27https://replicate.com/  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/%27" tppabs="https://replicate.com/"
+         class="no-outline no-default inline-block text-shade focus:text-white leading-10 align-top px-2 -ml-2">
+        Replicate
+      </a>
+    </h1>
+
+    <div class="hidden md:block text-right flex-grow">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="h-24">
+
+  
+
+  
+
+  <a href="javascript:if(confirm(%27https://replicate.com/explore  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/explore%27" tppabs="https://replicate.com/explore"
+     class="nav-link ">Explore</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/pricing  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/pricing%27" tppabs="https://replicate.com/pricing"
+     class="nav-link ">Pricing</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/docs  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/docs%27" tppabs="https://replicate.com/docs"
+     class="nav-link ">Docs</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/blog  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/blog%27" tppabs="https://replicate.com/blog"
+     class="nav-link ">Blog</a>
+
+  
+
+  
+
+  <a href="javascript:if(confirm(%27https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api  \n\nThis file was not retrieved by Teleport Ultra, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api%27" tppabs="https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api"
+     class="nav-link">Sign in</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/docs  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/docs%27" tppabs="https://replicate.com/docs"
+     class="inline-block mt-05lh md:mt-0 bg-black text-white px-3 py-2 rounded">Get started</a>
+  
+</nav>
+
+    </div>
+  </div>
+</div>
+
+
+    
+    <div class="block md:hidden flex-grow mt-lh">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="h-24">
+
+  
+
+  
+
+  <a href="javascript:if(confirm(%27https://replicate.com/explore  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/explore%27" tppabs="https://replicate.com/explore"
+     class="nav-link ">Explore</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/pricing  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/pricing%27" tppabs="https://replicate.com/pricing"
+     class="nav-link ">Pricing</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/docs  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/docs%27" tppabs="https://replicate.com/docs"
+     class="nav-link ">Docs</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/blog  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/blog%27" tppabs="https://replicate.com/blog"
+     class="nav-link ">Blog</a>
+
+  
+
+  
+
+  <a href="javascript:if(confirm(%27https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api  \n\nThis file was not retrieved by Teleport Ultra, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api%27" tppabs="https://replicate.com/signin?next=/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api"
+     class="nav-link">Sign in</a>
+
+  <a href="javascript:if(confirm(%27https://replicate.com/docs  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/docs%27" tppabs="https://replicate.com/docs"
+     class="inline-block mt-05lh md:mt-0 bg-black text-white px-3 py-2 rounded">Get started</a>
+  
+</nav>
+
+    </div>
+
+  </div>
+
+  
+
+  
+  <div class="px-2lh">
+    
+  </div>
+
+  <div class=" flex-1">
+    
+
+<div class="full-container pb-40">
+  
+
+  
+
+  <h3 class="mt-lh mb-lh">
+    
+    <!-- beautify ignore:start -->
+    <span class="text-shade"><a href="javascript:if(confirm(%27https://replicate.com/jiupinjia  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/jiupinjia%27" tppabs="https://replicate.com/jiupinjia">jiupinjia</a></span><span class="text-shade px-3">/</span></span>stylized-neural-painting-oil
+    <!-- beautify ignore:end -->
+  </h3>
+  <div class="flex mb-lh">
+    <div class="flex-none">
+
+    </div>
+    <div class="flex-grow">
+      
+<div class=" inline-block rounded-full text-black bg-bgshade small-caps px-3 pb-1 mr-2">
+  <span class="text-sm relative "
+        style="top: 0.07em">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     class="icon">
+  <circle cx="12"
+          cy="12"
+          r="10"></circle>
+  <line x1="2"
+        y1="12"
+        x2="22"
+        y2="12"></line>
+  <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"></path>
+</svg>
+</span>
+  Public
+</div>
+
+
+
+      
+      Image to oil painting generation
+      
+
+      
+    </div>
+
+    <div class="flex-none ml-05lh ">
+      
+
+<div class="bubble">
+  
+<svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="24"
+     height="24">
+  <path fill-rule="evenodd"
+        d="M20.322.75a10.75 10.75 0 00-7.373 2.926l-1.304 1.23A23.743 23.743 0 0010.103 6.5H5.066a1.75 1.75 0 00-1.5.85l-2.71 4.514a.75.75 0 00.49 1.12l4.571.963c.039.049.082.096.129.14L8.04 15.96l1.872 1.994c.044.047.091.09.14.129l.963 4.572a.75.75 0 001.12.488l4.514-2.709a1.75 1.75 0 00.85-1.5v-5.038a23.741 23.741 0 001.596-1.542l1.228-1.304a10.75 10.75 0 002.925-7.374V2.499A1.75 1.75 0 0021.498.75h-1.177zM16 15.112c-.333.248-.672.487-1.018.718l-3.393 2.262.678 3.223 3.612-2.167a.25.25 0 00.121-.214v-3.822zm-10.092-2.7L8.17 9.017c.23-.346.47-.685.717-1.017H5.066a.25.25 0 00-.214.121l-2.167 3.612 3.223.679zm8.07-7.644a9.25 9.25 0 016.344-2.518h1.177a.25.25 0 01.25.25v1.176a9.25 9.25 0 01-2.517 6.346l-1.228 1.303a22.248 22.248 0 01-3.854 3.257l-3.288 2.192-1.743-1.858a.764.764 0 00-.034-.034l-1.859-1.744 2.193-3.29a22.248 22.248 0 013.255-3.851l1.304-1.23zM17.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm-11 13c.9-.9.9-2.6 0-3.5-.9-.9-2.6-.9-3.5 0-1.209 1.209-1.445 3.901-1.49 4.743a.232.232 0 00.247.247c.842-.045 3.534-.281 4.743-1.49z"></path>
+</svg>
+ 2.5K runs
+</div>
+
+    </div>
+
+    
+    <div class="flex-none ">
+      <a href="javascript:if(confirm(%27https://github.com/jiupinjia/stylized-neural-painting  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://github.com/jiupinjia/stylized-neural-painting%27" tppabs="https://github.com/jiupinjia/stylized-neural-painting"
+         target="_blank"
+         class="bubble ml-05lh">
+        
+<svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path>
+</svg>
+ GitHub
+      </a></p>
+    </div>
+    
+    
+    <div class="flex-none ">
+      <p class="mb-05lh"><a href="javascript:if(confirm(%27https://arxiv.org/abs/2011.08114  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://arxiv.org/abs/2011.08114%27" tppabs="https://arxiv.org/abs/2011.08114"
+           target="_blank"
+           class="bubble ml-05lh">
+          
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     class="icon">
+  <path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"></path>
+  <polyline points="14 2 14 8 20 8"></polyline>
+  <line x1="16"
+        y1="13"
+        x2="8"
+        y2="13"></line>
+  <line x1="16"
+        y1="17"
+        x2="8"
+        y2="17"></line>
+  <line x1="10"
+        y1="9"
+        x2="8"
+        y2="9"></line>
+</svg>
+ Paper
+        </a></p>
+    </div>
+    
+
+    
+    <div class="flex-none ">
+      <p class="mb-05lh"><a href="javascript:if(confirm(%27https://github.com/jiupinjia/stylized-neural-painting/blob/main/LICENSE  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://github.com/jiupinjia/stylized-neural-painting/blob/main/LICENSE%27" tppabs="https://github.com/jiupinjia/stylized-neural-painting/blob/main/LICENSE"
+           target="_blank"
+           class="bubble ml-05lh">
+          
+<svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+  <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+  <path d="M7 21h10"></path>
+  <path d="M12 3v18"></path>
+  <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
+</svg>
+ License
+        </a></p>
+    </div>
+    
+  </div>
+
+  
+
+
+  <div class="tabs flex mb-2lh border-b border-hairline ">
+    <a href="stylized-neural-painting-oil.htm" tppabs="https://replicate.com/jiupinjia/stylized-neural-painting-oil"
+       class="tab mr-2lh ">
+      <svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+
+</svg>
+ Demo
+    </a>
+
+    
+    
+    
+    <a href="api-1.htm" tppabs="https://replicate.com/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/api"
+       class="tab mr-2lh selected">
+      
+<svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="24"
+     height="24">
+  <path fill-rule="evenodd"
+        d="M20.322.75a10.75 10.75 0 00-7.373 2.926l-1.304 1.23A23.743 23.743 0 0010.103 6.5H5.066a1.75 1.75 0 00-1.5.85l-2.71 4.514a.75.75 0 00.49 1.12l4.571.963c.039.049.082.096.129.14L8.04 15.96l1.872 1.994c.044.047.091.09.14.129l.963 4.572a.75.75 0 001.12.488l4.514-2.709a1.75 1.75 0 00.85-1.5v-5.038a23.741 23.741 0 001.596-1.542l1.228-1.304a10.75 10.75 0 002.925-7.374V2.499A1.75 1.75 0 0021.498.75h-1.177zM16 15.112c-.333.248-.672.487-1.018.718l-3.393 2.262.678 3.223 3.612-2.167a.25.25 0 00.121-.214v-3.822zm-10.092-2.7L8.17 9.017c.23-.346.47-.685.717-1.017H5.066a.25.25 0 00-.214.121l-2.167 3.612 3.223.679zm8.07-7.644a9.25 9.25 0 016.344-2.518h1.177a.25.25 0 01.25.25v1.176a9.25 9.25 0 01-2.517 6.346l-1.228 1.303a22.248 22.248 0 01-3.854 3.257l-3.288 2.192-1.743-1.858a.764.764 0 00-.034-.034l-1.859-1.744 2.193-3.29a22.248 22.248 0 013.255-3.851l1.304-1.23zM17.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm-11 13c.9-.9.9-2.6 0-3.5-.9-.9-2.6-.9-3.5 0-1.209 1.209-1.445 3.901-1.49 4.743a.232.232 0 00.247.247c.842-.045 3.534-.281 4.743-1.49z"></path>
+</svg>
+ API
+    </a>
+
+
+    <a href="examples.htm" tppabs="https://replicate.com/jiupinjia/stylized-neural-painting-oil/examples"
+       class="tab mr-2lh ">
+      <svg class="icon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <rect x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="2"
+        ry="2"></rect>
+  <polyline points="11 3 11 11 14 8 17 11 17 3"></polyline>
+</svg>
+ Examples
+    </a>
+    <a href="versions.htm" tppabs="https://replicate.com/jiupinjia/stylized-neural-painting-oil/versions"
+       class="tab mr-2lh ">
+      
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     class="icon">
+  <path d="M3 3v5h5"></path>
+  <path d="M3.05 13A9 9 0 106 5.3L3 8"></path>
+  <path d="M12 7v5l4 2"></path>
+</svg>
+ Versions
+
+      <span class="text-shade text-sm font-mono">(ae2c8e4)</span>
+    </a>
+
+    
+  </div>
+
+  
+
+  
+
+<script id="model" type="application/json">{"absolute_url": "/jiupinjia/stylized-neural-painting-oil", "username": "jiupinjia", "name": "stylized-neural-painting-oil", "description": "Image to oil painting generation", "visibility": "public", "github_url": "https://github.com/jiupinjia/stylized-neural-painting", "paper_url": "https://arxiv.org/abs/2011.08114", "arxiv_paper_id": "2011.08114", "cover_image": {"url": "https://replicate.delivery/mgxm/7350b737-c4f6-4bef-a4c5-e365a5cd3884/out.gif", "is_audio_video": false}, "latest_version_created_at": null, "default_example_uuid": "sj5du6hyr5clpgoc6seigrpm6u", "display_output_as_json": false}</script>
+<script id="version" type="application/json">{"config": {"build": {"gpu": true, "cuda": "11.1", "cudnn": "8", "python_version": "3.8", "python_packages": ["imageio==2.9.0", "numpy==1.21.1", "scikit-image==0.18.2", "https://replicate.com/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/opencv-python==4.5.3.56", "ipython==7.21.0", "Pillow==8.3.1", "matplotlib==3.1.3", "scipy==1.4.1", "scikit-image==0.18.2", "https://replicate.com/jiupinjia/stylized-neural-painting-oil/versions/ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa/opencv-contrib-python==4.5.3.56", "gdown==3.13.0", "runway-python==0.6.1", "torchvision==0.9.0", "torch==1.8.0"], "system_packages": ["libgl1-mesa-glx", "libglib2.0-0"]}, "predict": "predict.py:Predictor"}, "docker_image_id": "ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa", "docker_image_name": "r8.im/jiupinjia/stylized-neural-painting-oil@sha256:ae2c8e426d49eb9697ac6811285ef912f0077afa18da386a23995eb762579baa", "openapi_schema": {"components": {"schemas": {"Input": {"type": "object", "properties": {"image": {"type": "string", "format": "uri", "x-order": 0, "description": "input image"}, "max_strokes": {"type": "integer", "default": 500, "x-order": 2, "description": "max number of strokes"}, "output_type": {"enum": ["png", "gif"], "type": "string", "default": "png", "x-order": 3, "description": "output the final painting or gif with each intermediate stroke"}, "canvas_color": {"enum": ["black", "white"], "type": "string", "default": "black", "x-order": 1, "description": "canvas color"}}}, "Output": {"type": "array", "items": {"type": "object", "properties": {"file": {"type": "string", "format": "uri", "x-order": 0}, "text": {"type": "string", "x-order": 1}}}, "x-cog-array-type": "iterator"}}}}, "model": {"absolute_url": "/jiupinjia/stylized-neural-painting-oil", "username": "jiupinjia", "name": "stylized-neural-painting-oil", "description": "Image to oil painting generation", "visibility": "public", "github_url": "https://github.com/jiupinjia/stylized-neural-painting", "paper_url": "https://arxiv.org/abs/2011.08114", "arxiv_paper_id": "2011.08114", "cover_image": {"url": "https://replicate.delivery/mgxm/7350b737-c4f6-4bef-a4c5-e365a5cd3884/out.gif", "is_audio_video": false}, "latest_version_created_at": null, "default_example_uuid": "sj5du6hyr5clpgoc6seigrpm6u", "display_output_as_json": false}}</script>
+
+<div data-component="VersionAPIReference"
+     data-script-prop-version="version"
+     data-script-prop-model="model">
+</div>
+
+
+
+</div>
+
+
+
+
+  </div>
+
+
+  <div class="p-lh md:p-2lh border-hairline border-t">
+    <div class="md:flex">
+  <p>Replicate</p>
+  <div class="mt-0 sm:mt-4 md:mt-0 md:text-right flex-grow">
+    <a href="javascript:if(confirm(%27https://replicate.com/about  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/about%27" tppabs="https://replicate.com/about"
+       class="mr-3">About</a>
+    <a href="javascript:if(confirm(%27https://replicate.com/docs  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/docs%27" tppabs="https://replicate.com/docs"
+       class="mr-3">Docs</a>
+    <a href="javascript:if(confirm(%27https://replicate.com/terms  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/terms%27" tppabs="https://replicate.com/terms"
+       class="mr-3">Terms</a>
+    <a href="javascript:if(confirm(%27https://replicate.com/privacy  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://replicate.com/privacy%27" tppabs="https://replicate.com/privacy"
+       class="mr-3">Privacy</a>
+    <a href="javascript:if(confirm(%27https://github.com/replicate  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://github.com/replicate%27" tppabs="https://github.com/replicate"
+       class="mr-3">GitHub</a>
+    <a href="javascript:if(confirm(%27https://twitter.com/replicatehq  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://twitter.com/replicatehq%27" tppabs="https://twitter.com/replicatehq"
+       class="mr-3">Twitter</a>
+    <a href="javascript:if(confirm(%27https://discord.gg/replicate  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://discord.gg/replicate%27" tppabs="https://discord.gg/replicate"
+       class="mr-3">Discord</a>
+    <a href="mailto:team@replicate.com"
+       class="mr-3">Email</a>
+  </div>
+</div>
+
+  </div>
+
+  
+
+  <script src="index.bf925f4a2ed7.js" tppabs="https://replicate.com/static/dist/index.bf925f4a2ed7.js"></script>
+  <script>
+    /* beautify ignore:start */
+    window.replicateInit({"SENTRY_DSN_JS": "https://3dc017e574684610bbc7fd3b5519a4e8@o255771.ingest.sentry.io/5909364"})
+    /* beautify ignore:end */
+
+  </script>
+  
+
+</body>
+
+</html>

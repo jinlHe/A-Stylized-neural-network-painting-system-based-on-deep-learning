@@ -1,0 +1,331 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script src="/static/jquery.js"></script>
+
+    <link rel="shortcut icon"
+          href="/static/favicon.5a94ee72b9d3.ico" tppabs="https://replicate.com/static/favicon.5a94ee72b9d3.ico">
+
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="RSS"
+          href="/blog/rss">
+    <link rel="alternate"
+          type="application/atom+xml"
+          title="Atom"
+          href="/blog/atom">
+
+
+
+<script>
+    let sitv
+    function get_msg(){
+        //先把输出的图片隐藏起来，再把输出过程信息文的文本框显示出来
+        $("#outputImg").css('display', 'none')
+        $("#icon").css('display', 'block')
+        $("#textArea").css('display', 'block')
+
+        //获取过程信息
+        sitv = setInterval(function (){
+            const ori = document.getElementById("msg_div").innerHTML;
+            $.ajax({
+            url:'/paint/getMsg/',
+            success: function (json){
+                const msg = json['msg']
+                document.getElementById("msg_div").innerHTML = ori + "<p>" + msg + "</p>"
+            }
+
+        })
+        },100)
+
+        //提交form表单信息
+        var formData = new FormData();
+        var img_file = document.getElementById('image');
+        var fileObj = img_file.files[0];
+        var canvas_color = $("#canvas_color").val();
+        var max_strokes = $("#max_strokes").val();
+        var output_type = $("#output_type").val();
+        var renderer = $("#renderer").val()
+        formData.append("image",fileObj);
+        formData.append('canvas_color',canvas_color);
+        formData.append("max_strokes",max_strokes);
+        formData.append("output_type",output_type);
+        formData.append("renderer",renderer);
+        $.ajax({
+            type:'post',
+            url:'/paint/getargs/',
+            data:formData,
+            async:false,
+            processData:false,
+            contentType:false,
+            success: function (res){
+                $("#outputImg").attr("src", res.gif_path)
+                $("#outputImg").css('display', 'block')
+                $("#icon").css('display', 'none')
+                $("#textArea").css('display', 'none')
+            }
+
+        })
+
+
+    }
+
+</script>
+
+
+    <title>stylized-neural-painting-oil</title>
+
+    <link rel="stylesheet"
+          href="/static/index.0856b7bed102.css">
+
+
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+
+    <meta name="twitter:site"
+          content="@replicatehq">
+
+
+    <meta name="twitter:image"
+          content="/static/out.gif">
+
+
+    <meta name="twitter:title"
+          content="jiupinjia/stylized-neural-painting-oil – Replicate">
+    <meta name="twitter:description"
+          content="Image to oil painting generation">
+
+    <meta name="description"
+          content="Image to oil painting generation">
+
+</head>
+
+
+<body class="font-sans overflow-y-scroll antialiased flex min-h-screen flex-col">
+
+
+<div class="px-2lh">
+
+</div>
+
+<div class=" flex-1">
+
+
+    <div class="full-container pb-40">
+
+
+        <h3 class="mt-lh mb-lh">
+            stylized-neural-painting-oil
+        </h3>
+        <div class="flex mb-lh">
+            <div class="flex-none">
+
+            </div>
+            <div class="flex-grow">
+
+                <div class=" inline-block rounded-full text-black bg-bgshade small-caps px-3 pb-1 mr-2">
+  <span class="text-sm relative "
+        style="top: 0.07em">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24"
+     height="24"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.5"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     class="icon">
+  <circle cx="12"
+          cy="12"
+          r="10"></circle>
+  <line x1="2"
+        y1="12"
+        x2="22"
+        y2="12"></line>
+  <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"></path>
+</svg>
+</span>
+                </div>
+
+
+                Image to oil painting generation
+
+
+            </div>
+
+
+            <div class="flex-none ">
+                <p class="mb-05lh">
+                </p>
+            </div>
+
+
+            <div class="flex-none ">
+                <p class="mb-05lh">
+                </p>
+            </div>
+
+
+            <div class="flex-none ">
+                <p class="mb-05lh">
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="mb-2lh">
+                <div class="mb-lh">
+                    <div>
+                        <div class="flex">
+                            <div class="flex-1 min-w-0 pr-lh"><h4 class="flex-1 pr-lh mb-lh">Input</h4>
+
+                            <form enctype="multipart/form-data" id="myform">
+                                <div class="mb-lh">
+{#                                    <a#}
+{#                                        href="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"#}
+{#                                        rel="noreferrer" target="_blank">#}
+                                        <img
+                                        src="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
+                                        alt="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
+                                        class="">
+{#                                    </a>#}
+                                </div>
+                                <div class="mb-lh">
+                                    <label class=" block mb-2"><code>image</code></label>
+                                    <input type="file" name="image" id="image">
+                                    <div
+                                            class="dropzone text-shade border-black border-2 border-opacity-10 border-dashed px-lh py-05lh cursor-pointer">
+
+
+                                        <input type="file" class="hidden" name="image">
+
+
+                                        <div>
+                                            <input type="file" class="hidden" name="image">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="icon">
+                                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                                                <polyline points="17 8 12 3 7 8"></polyline>
+                                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                                            </svg> <!--上传的那个图标-->
+                                            Drop a file or click to select
+                                            <br>
+                                            <div class="flex ">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <p class="text-shade mt-1">input image</p>
+                                    <p class="text-shade mt-1" style="color: red">{{ error_msg }}</p>
+                                </div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>canvas_color</code></label><select
+                                        name="canvas_color" class="form-select w-full" id="canvas_color">
+
+                                    <option value="black">black</option>
+                                    <option value="white">white</option>
+                                </select>
+                                    <p class="text-shade mt-1">canvas color</p></div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>max_strokes</code></label><input
+                                        name="max_strokes" type="number" step="1" class="form-input w-full" id="max_strokes"
+                                        value="500">
+                                    <p class="text-shade mt-1">max number of strokes</p></div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>output_type</code></label><select
+                                        name="output_type" class="form-select w-full" id="output_type">
+
+                                    <option value="png">png</option>
+                                    <option value="gif">gif</option>
+                                </select>
+                                    <p class="text-shade mt-1">output the final painting or gif with each
+                                        intermediate stroke</p></div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>renderer</code></label><select
+                                        name="renderer" class="form-select w-full" id="renderer">
+
+                                    <option value="watercolor">watercolor</option>
+                                    <option value="markerpen">markerpen</option>
+                                    <option value="oilpaintbrush">oilpaintbrush</option>
+                                    <option value="rectangle">rectangle</option>
+
+                                </select>
+                                </div>
+                                <button class="form-button mr-2 relative" type="button" onclick="get_msg()"><span>Submit</span></button>
+                                <button class="form-button-secondary" type="button">Reset</button>
+                            </form>
+
+                        </div>
+
+
+                        <div class="flex-1 min-w-0">
+                            <div><h4 class="flex-1 mb-lh">Output</h4>
+                                <div class="mb-lh">
+                                    <div data-prediction-output="true" class="mb-lh">
+                                        <div class="">
+                                            <div>
+
+
+                                                <img id='outputImg'
+                                                    src="/static/out.gif"
+                                                    alt="file" class="">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- 过程信息 -->
+                                <div class="mb-lh" id="icon" style="display: none">
+                                    <svg class="animate-spin inline-block mr-3 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>Running prediction...</div>
+                                <div  style="display: none" id="textArea" class="react-scroll-to-bottom--css-pdffr-79elbk h-60 overflow-auto whitespace-pre-wrap bg-bgshade text-black text-sm font-mono">
+                                    <div class="react-scroll-to-bottom--css-pdffr-1n7m0yu">
+                                        <div class="p-05lh" id="msg_div">
+                                            begin...
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="inline-block mr-3 mb-3"><a class="form-button-secondary mb-lh"
+                                                                       href="https://replicate.delivery/mgxm/7350b737-c4f6-4bef-a4c5-e365a5cd3884/out.gif"
+                                                                       download="replicate-prediction-sj5du6hyr5clpgoc6seigrpm6u.gif">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round" class="icon">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg><!--download图标-->
+                                    Download</a></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</body>
+
+</html>
