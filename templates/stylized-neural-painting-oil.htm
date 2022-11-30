@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="/static/jquery.js"></script>
+    <script src="/static/jquery-3.6.1.min.js"></script>
 
     <link rel="shortcut icon"
           href="/static/favicon.5a94ee72b9d3.ico" tppabs="https://replicate.com/static/favicon.5a94ee72b9d3.ico">
@@ -18,62 +18,81 @@
           href="/blog/atom">
 
 
+    <script>
 
-<script>
-    let sitv
-    function get_msg(){
-        //先把输出的图片隐藏起来，再把输出过程信息文的文本框显示出来
-        $("#outputImg").css('display', 'none')
-        $("#icon").css('display', 'block')
-        $("#textArea").css('display', 'block')
+        let sitv
+        function fun1() {
+            //先把输出的图片隐藏起来，再把输出过程信息文的文本框显示出来
+            $("#outputImg").css('display', 'none')
+            $("#icon").css('display', 'block')
+            $("#textArea").css('display', 'block')
+        }
+        function fun2(){
+            //获取过程信息
+            let flag = ""
+            sitv = setInterval(function () {
+                $.ajax({
+                    url: '/paint/getMsg/',
+                    success: function (json) {
+                        if(flag !== json['msg']){
+                            flag = json['msg']
+                            const ori = document.getElementById("msg_div").innerHTML;
+                            const msg = json['msg']
+                            document.getElementById("msg_div").innerHTML = ori + "<p>" + msg + "</p>"
+                        }
 
-        //获取过程信息
-        sitv = setInterval(function (){
-            const ori = document.getElementById("msg_div").innerHTML;
+                    }
+
+                })
+            }, 100)
+        }
+        function fun3() {
+            //提交form表单信息
+            var formData = new FormData();
+            var img_file = document.getElementById('image');
+            var fileObj = img_file.files[0];
+            var canvas_color = $("#canvas_color").val();
+            var max_strokes = $("#max_strokes").val();
+            var output_type = $("#output_type").val();
+            var renderer = $("#renderer").val()
+            formData.append("image", fileObj);
+            formData.append('canvas_color', canvas_color);
+            formData.append("max_strokes", max_strokes);
+            formData.append("output_type", output_type);
+            formData.append("renderer", renderer);
             $.ajax({
-            url:'/paint/getMsg/',
-            success: function (json){
-                const msg = json['msg']
-                document.getElementById("msg_div").innerHTML = ori + "<p>" + msg + "</p>"
-            }
+                type: 'post',
+                url: '/paint/getargs/',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $("#outputImg").attr("src", res.gif_path)
+                    $("#outputImg").css('display', 'block')
+                    $("#icon").css('display', 'none')
+                    $("#textArea").css('display', 'none')
+                }
 
-        })
-        },100)
+            })
+        }
 
-        //提交form表单信息
-        var formData = new FormData();
-        var img_file = document.getElementById('image');
-        var fileObj = img_file.files[0];
-        var canvas_color = $("#canvas_color").val();
-        var max_strokes = $("#max_strokes").val();
-        var output_type = $("#output_type").val();
-        var renderer = $("#renderer").val()
-        formData.append("image",fileObj);
-        formData.append('canvas_color',canvas_color);
-        formData.append("max_strokes",max_strokes);
-        formData.append("output_type",output_type);
-        formData.append("renderer",renderer);
+
+    </script>
+    <script>
         $.ajax({
-            type:'post',
-            url:'/paint/getargs/',
-            data:formData,
-            async:false,
-            processData:false,
-            contentType:false,
-            success: function (res){
-                $("#outputImg").attr("src", res.gif_path)
-                $("#outputImg").css('display', 'block')
-                $("#icon").css('display', 'none')
-                $("#textArea").css('display', 'none')
+            url: '/paint/download/',
+            type: 'get',
+            success: function (res) {
+                a = document.createElement('a')
+                a.href = res.url
+                a.setAttribute('download', 'result.xlsx')
+                a.click()
+            },
+            error: function () {
+                alert('下载失败，请联系管理员')
             }
-
         })
-
-
-    }
-
-</script>
-
+    </script>
 
     <title>stylized-neural-painting-oil</title>
 
@@ -179,21 +198,21 @@
 
 
         <div class="mb-2lh">
-                <div class="mb-lh">
-                    <div>
-                        <div class="flex">
-                            <div class="flex-1 min-w-0 pr-lh"><h4 class="flex-1 pr-lh mb-lh">Input</h4>
+            <div class="mb-lh">
+                <div>
+                    <div class="flex">
+                        <div class="flex-1 min-w-0 pr-lh"><h4 class="flex-1 pr-lh mb-lh">Input</h4>
 
                             <form enctype="multipart/form-data" id="myform">
                                 <div class="mb-lh">
-{#                                    <a#}
-{#                                        href="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"#}
-{#                                        rel="noreferrer" target="_blank">#}
-                                        <img
-                                        src="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                        alt="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                        class="">
-{#                                    </a>#}
+                                    {#                                    <a#}
+                                    {#                                        href="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"#}
+                                    {#                                        rel="noreferrer" target="_blank">#}
+                                    <img
+                                            src="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
+                                            alt="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
+                                            class="">
+                                    {#                                    </a>#}
                                 </div>
                                 <div class="mb-lh">
                                     <label class=" block mb-2"><code>image</code></label>
@@ -236,7 +255,8 @@
                                     <p class="text-shade mt-1">canvas color</p></div>
                                 <div class="mb-lh"><label
                                         class=" block mb-2"><code>max_strokes</code></label><input
-                                        name="max_strokes" type="number" step="1" class="form-input w-full" id="max_strokes"
+                                        name="max_strokes" type="number" step="1" class="form-input w-full"
+                                        id="max_strokes"
                                         value="500">
                                     <p class="text-shade mt-1">max number of strokes</p></div>
                                 <div class="mb-lh"><label
@@ -259,7 +279,8 @@
 
                                 </select>
                                 </div>
-                                <button class="form-button mr-2 relative" type="button" onclick="get_msg()"><span>Submit</span></button>
+                                <button class="form-button mr-2 relative" type="button" onclick="fun1();fun2();fun3()">
+                                    <span>Submit</span></button>
                                 <button class="form-button-secondary" type="button">Reset</button>
                             </form>
 
@@ -275,8 +296,8 @@
 
 
                                                 <img id='outputImg'
-                                                    src="/static/out.gif"
-                                                    alt="file" class="">
+                                                     src="/static/out.gif"
+                                                     alt="file" class="">
 
                                             </div>
                                         </div>
@@ -285,9 +306,17 @@
                                 </div>
                                 <!-- 过程信息 -->
                                 <div class="mb-lh" id="icon" style="display: none">
-                                    <svg class="animate-spin inline-block mr-3 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>Running prediction...</div>
-                                <div  style="display: none" id="textArea" class="react-scroll-to-bottom--css-pdffr-79elbk h-60 overflow-auto whitespace-pre-wrap bg-bgshade text-black text-sm font-mono">
+                                    <svg class="animate-spin inline-block mr-3 h-5 w-5 "
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Running prediction...
+                                </div>
+                                <div style="display: none" id="textArea"
+                                     class="react-scroll-to-bottom--css-pdffr-79elbk h-60 overflow-auto whitespace-pre-wrap bg-bgshade text-black text-sm font-mono">
                                     <div class="react-scroll-to-bottom--css-pdffr-1n7m0yu">
                                         <div class="p-05lh" id="msg_div">
                                             begin...
@@ -296,8 +325,7 @@
                                 </div>
 
                                 <div class="inline-block mr-3 mb-3"><a class="form-button-secondary mb-lh"
-                                                                       href="https://replicate.delivery/mgxm/7350b737-c4f6-4bef-a4c5-e365a5cd3884/out.gif"
-                                                                       download="replicate-prediction-sj5du6hyr5clpgoc6seigrpm6u.gif">
+                                                                       id="download">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                          stroke-linecap="round" stroke-linejoin="round" class="icon">
@@ -322,8 +350,6 @@
 
 
 </div>
-
-
 
 
 </body>
