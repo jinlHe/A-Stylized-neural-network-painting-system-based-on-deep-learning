@@ -1,4 +1,7 @@
 # 基于深度学习的风格化神经网络绘画系统
+在这里的所有的文件，没有四个checkpoints_G_***的预训练文件和一个brushes文件，自己粘贴到第一层目录下面就行。
+html里的jquery文件是自己创建的，没有mini-jquery文件，可以去改路径，push上来就行。
+
 以下链接是原论文的地址和Colab地址：
 
 [Preprint](<https://arxiv.org/abs/2011.08114>) | [Project Page](<https://jiupinjia.github.io/neuralpainter/>)  | [Colab Runtime 1](<https://colab.research.google.com/drive/1XwZ4VI12CX2v9561-WD5EJwoSTJPFBbr?usp=sharing/>)  | [Colab Runtime 2](<https://colab.research.google.com/drive/1ch_41GtcQNQT1NLOA21vQJ_rQOjjv9D8?usp=sharing/>) 
@@ -6,9 +9,9 @@
 ![](./gallery/gif_teaser_1.gif)
 
 
-## Requirements
+## 项目运行需要的包
 
-See [Requirements.txt](Requirements.txt).
+详见 [Requirements.txt](Requirements.txt).
 
 
 
