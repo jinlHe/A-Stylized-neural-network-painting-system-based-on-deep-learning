@@ -82,6 +82,15 @@
             })
         }
 
+        function changepic() {
+            var reads = new FileReader();
+            f = document.getElementById('image').files[0];
+            reads.readAsDataURL(f);
+            reads.onload = function (e) {
+                document.getElementById('show').src = this.result;
+            };
+        }
+
 
     </script>
     {#    <script>#}
@@ -272,18 +281,13 @@
 
                             <form enctype="multipart/form-data" id="myform">
                                 <div class="mb-lh">
-                                    {#                                    <a#}
-                                    {#                                        href="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"#}
-                                    {#                                        rel="noreferrer" target="_blank">#}
                                     <img
                                             src="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                            alt="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                            class="">
-                                    {#                                    </a>#}
+                                            class="" id="show">
                                 </div>
                                 <div class="mb-lh">
                                     <label class=" block mb-2"><code>image</code></label>
-                                    <input type="file" name="image" id="image">
+                                    <input type="file" name="image" id="image" onchange="changepic(this)">
                                     <div
                                             class="dropzone text-shade border-black border-2 border-opacity-10 border-dashed px-lh py-05lh cursor-pointer">
 
