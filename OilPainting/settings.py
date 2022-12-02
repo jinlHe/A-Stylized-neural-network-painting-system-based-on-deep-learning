@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'paint',
     'transfer',
-    'bit8'
+    'bit8',
+    'user'
 ]
 
 MIDDLEWARE = [
