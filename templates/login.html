@@ -332,7 +332,7 @@
 
              </div>
          </div> -->
-        <div class='login_fields__submit'>
+        <div class='login_fields__submit' >
             <input type='button' value='登录'>
         </div>
     </div>
@@ -484,6 +484,45 @@
     }
 </script>
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".login_fields__submit").click(function(){
+
+            var username=$("#username").val();
+            if(!username){
+                alert("请输入用户名")
+                return;
+            }
+            var clientpwd=$("#userpwd").val();
+            if(!clientpwd){
+                alert("请输入密码")
+                return;
+            }
+
+            $.post("/user/login_view/",$("[name]").serialize(),function(data){
+                if(data.userid){
+                    if(data.role==0){
+                        window.location.href = "adminindex.html"
+                    }else if(data.role==1){
+                        window.location.href ="teacherindex.html"
+                    }else if(data.role==2){
+						 window.location.href ="studentcourse.html"
+					}
+
+                }else{
+                    alert("用户名密码输入错误");
+                }
+
+            },"json");
+
+        });
+
+
+
+
+    });
+</script>
 
 </body>
 
