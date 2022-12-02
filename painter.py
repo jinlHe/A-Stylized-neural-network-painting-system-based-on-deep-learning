@@ -104,7 +104,7 @@ class PainterBase():
         myinfo.save()
         print('saving stroke parameters...')
         file_name = os.path.join(
-            self.output_dir, self.img_path.split('/')[-1][:-4])
+            self.output_dir, self.img_path.split('\\')[-1][:-4])
         np.savez(file_name + '_strokes.npz', x_ctt=x_ctt,
                  x_color=x_color, x_alpha=x_alpha)
 

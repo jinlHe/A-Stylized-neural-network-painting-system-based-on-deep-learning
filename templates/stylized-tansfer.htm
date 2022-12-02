@@ -32,7 +32,7 @@
             let flag = "123"
             sitv = setInterval(function () {
                 $.ajax({
-                    url: '/paint/getMsg/',
+                    url: '/transfer/getMsg/',
                     success: function (json) {
                         if(flag !== json['msg']){
                             flag = json['msg']
@@ -57,16 +57,17 @@
             var fileObj = img_file.files[0];
             var canvas_color = $("#canvas_color").val();
             var max_strokes = $("#max_strokes").val();
-            var output_type = $("#output_type").val();
+            var transfer_mode = $("#transfer_mode").val();
+            console.log(transfer_mode)
             var renderer = $("#renderer").val()
             formData.append("image", fileObj);
             formData.append('canvas_color', canvas_color);
             formData.append("max_strokes", max_strokes);
-            formData.append("output_type", output_type);
+            formData.append("transfer_mode", transfer_mode);
             formData.append("renderer", renderer);
             $.ajax({
                 type: 'post',
-                url: '/paint/getargs/',
+                url: '/transfer/getargs/',
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -343,14 +344,17 @@
 
                                 </select>
                                 </div>
-                                <div class="mb-lh"><label
-                                        class=" block mb-2"><code>transfer mode</code></label><select
-                                        name="canvas_color" class="form-select w-full" id="transfer_mode">
 
-                                    <option value="0">transfer color only</option>
-                                    <option value="1">transfer both color and texture</option>
-                                </select>
-                                    <p class="text-shade mt-1">specify the transfer mode</p></div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>transfer mode</code></label>
+                                    <select name="transfer_mode" class="form-select w-full" id="transfer_mode">
+
+                                        <option value=0>transfer color only</option>
+                                        <option value=1>transfer both color and texture</option>
+                                    </select>
+                                    <p class="text-shade mt-1">specify the transfer mode</p>
+                                </div>
+
                                 <button class="form-button mr-2 relative" type="button" onclick="fun1();fun2();fun3()">
                                     <span>Submit</span></button>
                                 <button class="form-button-secondary" type="button">Reset</button>

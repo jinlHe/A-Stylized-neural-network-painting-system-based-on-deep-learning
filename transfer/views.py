@@ -25,7 +25,7 @@ def getArgs(request):
     if photo is not None:
         output_path = os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))  # C:\Users\Donquixote\Desktop\OilPainting
-        output_path = os.path.join(output_path, "static/output")
+        output_path = os.path.join(output_path, 'static', 'output')
         content_img = request.COOKIES.get('content_img')
         npz_name = content_img + '_strokes.npz'
         vector_file = os.path.join(output_path, npz_name)
@@ -36,10 +36,12 @@ def getArgs(request):
         max_strokes = request.POST.get("max_strokes")
         transfer_mode = request.POST.get("transfer_mode")
         renderer = request.POST.get("renderer")
+        print(vector_file)
+        print(style_img_path)
+        print(content_img_name)
         print(canvas_color)
-        print(max_strokes)
-        print(transfer_mode)
         print(renderer)
+        print(transfer_mode)
         if renderer == 'watercolor':
             renderer_checkpoint_dir = './checkpoints_G_watercolor'
         elif renderer == 'markerpen':
@@ -64,10 +66,11 @@ def getArgs(request):
         myinfo.save()
 
         png_name = content_img + '_style_transfer_' + photo.name + '.png'
-        png_path = '/static/outout/' + png_name
+        print(png_name)
+        png_path = '/static/output/' + png_name
 
         myinfo = info.objects.get(id=1)
-        myinfo.msg = "over..."
+        myinfo.msg = ""
         myinfo.save()
         content = {
                 'gif_path': png_path
@@ -180,5 +183,5 @@ def setArgs(renderer, vector_file, style_img_path, content_img_path, transfer_mo
                         help='learning rate for stroke searching (default: 0.005)')
     parser.add_argument('--output_dir', type=str, default=r'./static/output', metavar='str',
                         help='dir to save style transfer results (default: ./output)')
-    args = parser.parse_args()
+    args = parser.parse_args(args=[])
     return args

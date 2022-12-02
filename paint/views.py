@@ -66,9 +66,9 @@ def getArgs(request):
         gif_name = gif_name + '.gif'
         png2gif(source=args.output_dir, gifname=gif_name, time=0.05)
         gif_path = '/static/output/' + gif_name
-        png_path = '/static/outout/' + png_name
+        png_path = '/static/output/' + png_name
         myinfo = info.objects.get(id=1)
-        myinfo.msg = "over..."
+        myinfo.msg = ""
         myinfo.save()
         if output_type == 'gif':
             content = {
@@ -116,8 +116,8 @@ def png2gif(source, gifname, time):
 
 def get_png_name(png_list):
     moban = png_list[0].split('_')[0]
-    length = len(list) - 2
-    png_name = moban + '_rendered_stroke_' + str(length) + '.png'
+    length = len(png_list) - 2
+    png_name = moban + '_rendered_stroke_0' + str(length) + '.png'
     return png_name
 
 
