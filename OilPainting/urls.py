@@ -23,6 +23,8 @@ from OilPainting import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main),
-    path('paint/', include('paint.urls'))
+    path('paint/', include('paint.urls')),
+    path('transfer/', include('transfer.urls')),
+    path('bit8/', include('bit8.urls'))
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
