@@ -15,6 +15,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def main(request):
     return render(request, 'bit8_generate.htm')
 
+
 def getArgs(request):
     # 先清空output 因为多个图片都存在output下了 生成gif会混乱
     output_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # C:\Users\Donquixote\Desktop\OilPainting
@@ -59,12 +60,12 @@ def getArgs(request):
         # 运行完后生成很多png 需要将png合成gif然后返回gif地址
         png_dir = output_path
         png_list = os.listdir(png_dir)
-        png_name = png_list[0]
+        png_name = get_png_name(png_list)
         gif_name = png_list[0].split('_')[0]
         gif_name = gif_name + '.gif'
         png2gif(source=args.output_dir, gifname=gif_name, time=0.1)
         gif_path = '/static/output/' + gif_name
-        png_path = '/static/outout/' + png_name
+        png_path = '/static/output/' + png_name
         myinfo = info.objects.get(id=1)
         myinfo.msg = "over..."
         myinfo.save()
@@ -102,6 +103,13 @@ def getMsg(request):
     return JsonResponse(json, safe=False)
 
 
+def get_png_name(png_list):
+    moban = png_list[0].split('_')[0]
+    length = len(list) - 2
+    png_name = moban + '_rendered_stroke_' + str(length) + '.png'
+    return png_name
+
+
 def png2gif(source, gifname, time):
     os.chdir(source)  # os.chdir()：改变当前工作目录到指定的路径
     file_list = os.listdir()  # os.listdir()：文件夹中的文件/文件夹的名字列表
@@ -112,7 +120,6 @@ def png2gif(source, gifname, time):
 
 
 def optimize_x(pt):
-
     pt._load_checkpoint()
     pt.net_G.eval()
     myinfo = info.objects.get(id=1)
