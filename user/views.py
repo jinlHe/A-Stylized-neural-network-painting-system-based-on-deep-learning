@@ -35,7 +35,7 @@ def login_view(request):
             else:
                 request.session.set_expiry(0)
                 print("登陆成功")
-            return render(request, "../templates/stylized-neural-painting-oil.htm")
+            return HttpResponseRedirect("/")
         else:
             error = '用户不存在或用户密码输入错误!!'
             return render(request, 'login.html', locals())
