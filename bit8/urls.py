@@ -17,7 +17,7 @@ from django.contrib import admin
 
 from django.urls import path
 
-from transfer import views
+from bit8 import views
 
 
 urlpatterns = [

@@ -29,7 +29,7 @@
         }
         function fun2(){
             //获取过程信息
-            let flag = ""
+            let flag = "123"
             sitv = setInterval(function () {
                 $.ajax({
                     url: '/paint/getMsg/',
@@ -39,6 +39,9 @@
                             const ori = document.getElementById("msg_div").innerHTML;
                             const msg = json['msg']
                             document.getElementById("msg_div").innerHTML = ori + "<p>" + msg + "</p>"
+                        }
+                        if(flag === 'over...'){
+                            clearInterval(sitv)
                         }
 
                     }

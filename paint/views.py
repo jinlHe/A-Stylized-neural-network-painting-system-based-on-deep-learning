@@ -73,10 +73,9 @@ def getArgs(request):
         list = info.objects.filter(id=1)
         if len(list) == 0:
             info.objects.create(current=0, total=0, msg="begin...")
-            print('123')
         optimize_x(pt)
         myinfo = info.objects.get(id=1)
-        myinfo.msg = ""
+        myinfo.msg = "over..."
         myinfo.save()
         # 运行完后生成很多png 需要将png合成gif然后返回gif地址
         png_dir = output_path
@@ -87,8 +86,9 @@ def getArgs(request):
         png2gif(source=args.output_dir, gifname=gif_name, time=0.1)
         gif_path = '/static/output/' + gif_name
         png_path = '/static/output/' + png_name
-        print(gif_path)
-        print(png_path)
+        myinfo = info.objects.get(id=1)
+        myinfo.msg = ""
+        myinfo.save()
         if output_type == 'gif':
             content = {
                 'gif_path': gif_path
