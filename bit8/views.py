@@ -49,7 +49,7 @@ def getArgs(request):
         args = setArgs(photo_path=photo_path, canvas_color=canvas_color, max_strokes=max_strokes, renderer=renderer,
                        renderer_checkpoint_dir=renderer_checkpoint_dir)
         pt = ProgressivePainter(args=args)
-        list = info.objects.filter(id=3)
+        list = info.objects.filter(id=1)
         if len(list) == 0:
             info.objects.create(current=0, total=0, msg="begin...")
         optimize_x(pt)
