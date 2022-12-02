@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'paint'
+    'paint',
+    'transfer',
+    'bit8'
 ]
 
 MIDDLEWARE = [
