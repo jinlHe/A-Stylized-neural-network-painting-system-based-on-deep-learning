@@ -23,5 +23,7 @@ from transfer import views
 urlpatterns = [
 
     path('main/', views.main),
+    path('getargs/', views.getArgs),
+    path('getMsg/', views.getMsg)
 
 ]

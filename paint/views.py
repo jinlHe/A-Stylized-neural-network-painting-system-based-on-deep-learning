@@ -1,10 +1,6 @@
 import argparse
-import functools
 import os.path
-import shutil
-
 import imageio
-import torch
 from OilPainting import settings
 import torch.optim as optim
 from django.http import HttpResponse, JsonResponse
@@ -20,30 +16,13 @@ def main(request):
     return render(request, 'stylized-neural-painting-oil.htm')
 
 
-def examples(request):
-    return render(request, 'examples.htm')
-
-
-def del_files(path_file):
-    ls = os.listdir(path_file)
-    for i in ls:
-        f_path = os.path.join(path_file, i)
-        # 判断是否是一个目录,若是,则递归删除
-        if os.path.isdir(f_path):
-            del_files(f_path)
-        else:
-            os.remove(f_path)
-
-
 def getArgs(request):
     # 先清空output 因为多个图片都存在output下了 生成gif会混乱
     output_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # C:\Users\Donquixote\Desktop\OilPainting
     output_path = os.path.join(output_path, "static/output")
-    # print(output_path)
-    # output_path = r'E:\PyCharm Projects\OilPainting\output'
-
-    del_files(output_path)
-
+    if len(os.listdir(output_path)) != 0:
+        # shutil.rmtree(output_path)  # 递归删除文件夹，即：删除非空文件夹
+        del_files(output_path)
     photo = request.FILES.get("image")
     if photo is not None:
         canvas_color = request.POST.get("canvas_color")
@@ -66,9 +45,11 @@ def getArgs(request):
             photo=photo,  # 拿到图片
             name=photo.name  # 拿到图片的名字
         )
-        new_img.save() #会自动保存
+        print(photo.name)
+        new_img.save()
         photo_path = os.path.join(settings.MEDIA_ROOT, 'photos', photo.name)
-        args = setArgs(photo_path=photo_path, canvas_color=canvas_color, max_strokes=max_strokes, renderer=renderer, renderer_checkpoint_dir=renderer_checkpoint_dir, output_dir=output_path)
+        args = setArgs(photo_path=photo_path, canvas_color=canvas_color, max_strokes=max_strokes, renderer=renderer,
+                       renderer_checkpoint_dir=renderer_checkpoint_dir)
         pt = ProgressivePainter(args=args)
         list = info.objects.filter(id=1)
         if len(list) == 0:
@@ -80,14 +61,14 @@ def getArgs(request):
         # 运行完后生成很多png 需要将png合成gif然后返回gif地址
         png_dir = output_path
         png_list = os.listdir(png_dir)
-        png_name = png_list[0]
+        png_name = get_png_name(png_list)
         gif_name = png_list[0].split('_')[0]
         gif_name = gif_name + '.gif'
-        png2gif(source=args.output_dir, gifname=gif_name, time=0.1)
+        png2gif(source=args.output_dir, gifname=gif_name, time=0.05)
         gif_path = '/static/output/' + gif_name
-        png_path = '/static/output/' + png_name
+        png_path = '/static/outout/' + png_name
         myinfo = info.objects.get(id=1)
-        myinfo.msg = ""
+        myinfo.msg = "over..."
         myinfo.save()
         if output_type == 'gif':
             content = {
@@ -97,7 +78,9 @@ def getArgs(request):
             content = {
                 'gif_path': png_path
             }
-        return JsonResponse(content, safe=False)  # 你这写错了之前
+        response = JsonResponse(content, safe=False)
+        response.set_cookie('content_img', png_list[0].split('_')[0])
+        return response
     else:
         content = {
             'error_msg': '请上传图片!'
@@ -105,18 +88,15 @@ def getArgs(request):
         return render(request, 'stylized-neural-painting-oil.htm', content)
 
 
-
-def test(request):
-    canvas_color = request.POST.get("canvas_color")
-    max_strokes = request.POST.get("max_strokes")
-    output_type = request.POST.get("output_type")
-    renderer = request.POST.get("renderer")
-    print(canvas_color)
-    print(max_strokes)
-    print(output_type)
-    print(renderer)
-
-    return render(request, '../backup/stylized-neural-painting-oil2.htm')
+def del_files(path_file):
+    ls = os.listdir(path_file)
+    for i in ls:
+        f_path = os.path.join(path_file, i)
+        # 判断是否是一个目录,若是,则递归删除
+        if os.path.isdir(f_path):
+            del_files(f_path)
+        else:
+            os.remove(f_path)
 
 
 def getMsg(request):
@@ -132,6 +112,13 @@ def png2gif(source, gifname, time):
     for png in file_list:
         frames.append(imageio.v2.imread(png))
     imageio.mimsave(gifname, frames, 'GIF', duration=time)
+
+
+def get_png_name(png_list):
+    moban = png_list[0].split('_')[0]
+    length = len(list) - 2
+    png_name = moban + '_rendered_stroke_' + str(length) + '.png'
+    return png_name
 
 
 def optimize_x(pt):
@@ -199,9 +186,7 @@ def optimize_x(pt):
     pt._save_rendered_images()
 
 
-def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint_dir, output_dir):
-    # output_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # C:\Users\Donquixote\Desktop\OilPainting
-    # output_path = os.path.join(output_path, "output")
+def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint_dir):
     parser = argparse.ArgumentParser(description='STYLIZED NEURAL PAINTING')
     parser.add_argument('--img_path', type=str, default=photo_path, metavar='str',
                         help='path to test image (default: ./test_images/sunflowers.jpg)')
@@ -227,7 +212,7 @@ def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint
                         help='dir to load neu-renderer (default: ./checkpoints_G_oilpaintbrush)')
     parser.add_argument('--lr', type=float, default=0.005,
                         help='learning rate for stroke searching (default: 0.005)')
-    parser.add_argument('--output_dir', type=str, default=output_dir, metavar='str',
+    parser.add_argument('--output_dir', type=str, default=r'./static/output', metavar='str',
                         help='dir to save painting results (default: ./output)')
     args = parser.parse_args(args=[])
     return args

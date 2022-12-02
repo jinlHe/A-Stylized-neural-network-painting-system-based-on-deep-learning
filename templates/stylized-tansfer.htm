@@ -44,6 +44,7 @@
                             clearInterval(sitv)
                         }
 
+
                     }
 
                 })
@@ -77,6 +78,15 @@
                 }
 
             })
+        }
+
+        function changepic() {
+            var reads = new FileReader();
+            f = document.getElementById('image').files[0];
+            reads.readAsDataURL(f);
+            reads.onload = function (e) {
+                document.getElementById('show').src = this.result;
+            };
         }
 
 
@@ -257,7 +267,7 @@
         ry="2"></rect>
   <polyline points="11 3 11 11 14 8 17 11 17 3"></polyline>
 </svg>
-8位图形生成
+8bit图形生成
     </a>
 
   </div>
@@ -269,21 +279,17 @@
                 <div>
                     <div class="flex">
                         <div class="flex-1 min-w-0 pr-lh"><h4 class="flex-1 pr-lh mb-lh">Input</h4>
-
+{#                            <input type="file" name="file" id="file" class="inputfile" style="opacity: 0"/>#}
+{#                            <label for="file" class='btn btn-success'>Choose a file</label>#}
                             <form enctype="multipart/form-data" id="myform">
                                 <div class="mb-lh">
-                                    {#                                    <a#}
-                                    {#                                        href="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"#}
-                                    {#                                        rel="noreferrer" target="_blank">#}
                                     <img
-                                            src="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                            alt="https://replicate.delivery/mgxm/d80ce030-bc40-4bd1-9ca8-6e3036494193/sunflowers.jpg"
-                                            class="">
-                                    {#                                    </a>#}
+                                            src="/static/fire.png"
+                                            class="" id="show">
                                 </div>
                                 <div class="mb-lh">
                                     <label class=" block mb-2"><code>image</code></label>
-                                    <input type="file" name="image" id="image">
+                                    <input type="file" name="image" id="image" onchange="changepic(this)">
                                     <div
                                             class="dropzone text-shade border-black border-2 border-opacity-10 border-dashed px-lh py-05lh cursor-pointer">
 
@@ -309,7 +315,7 @@
                                         </div>
 
                                     </div>
-                                    <p class="text-shade mt-1">input image</p>
+                                    <p class="text-shade mt-1">input image to be style transferred</p>
                                     <p class="text-shade mt-1" style="color: red">{{ error_msg }}</p>
                                 </div>
                                 <div class="mb-lh"><label
@@ -327,15 +333,6 @@
                                         value="500">
                                     <p class="text-shade mt-1">max number of strokes</p></div>
                                 <div class="mb-lh"><label
-                                        class=" block mb-2"><code>output_type</code></label><select
-                                        name="output_type" class="form-select w-full" id="output_type">
-
-                                    <option value="png">png</option>
-                                    <option value="gif">gif</option>
-                                </select>
-                                    <p class="text-shade mt-1">output the final painting or gif with each
-                                        intermediate stroke</p></div>
-                                <div class="mb-lh"><label
                                         class=" block mb-2"><code>renderer</code></label><select
                                         name="renderer" class="form-select w-full" id="renderer">
 
@@ -346,6 +343,14 @@
 
                                 </select>
                                 </div>
+                                <div class="mb-lh"><label
+                                        class=" block mb-2"><code>transfer mode</code></label><select
+                                        name="canvas_color" class="form-select w-full" id="transfer_mode">
+
+                                    <option value="0">transfer color only</option>
+                                    <option value="1">transfer both color and texture</option>
+                                </select>
+                                    <p class="text-shade mt-1">specify the transfer mode</p></div>
                                 <button class="form-button mr-2 relative" type="button" onclick="fun1();fun2();fun3()">
                                     <span>Submit</span></button>
                                 <button class="form-button-secondary" type="button">Reset</button>
@@ -363,7 +368,7 @@
 
 
                                                 <img id='outputImg'
-                                                     src="/static/out.gif"
+                                                     src="/static/sunflower_fire.png"
                                                      alt="file" class="">
 
                                             </div>
@@ -391,7 +396,7 @@
                                     </div>
                                 </div>
 
-                                <div class="inline-block mr-3 mb-3"><a class="form-button-secondary mb-lh"
+                                <div class="inline-block mr-3 mb-3" style="display: none"><a class="form-button-secondary mb-lh"
                                                                        id="download">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

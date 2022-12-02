@@ -6,7 +6,7 @@
     <script src="/static/jquery-3.6.1.min.js"></script>
 
     <link rel="shortcut icon"
-          href="/static/favicon.5a94ee72b9d3.ico">
+          href="/static/favicon.5a94ee72b9d3.ico" tppabs="https://replicate.com/static/favicon.5a94ee72b9d3.ico">
 
     <link rel="alternate"
           type="application/rss+xml"
@@ -31,7 +31,7 @@
 
         function fun2() {
             //获取过程信息
-            let flag = ""
+            let flag = "123"
             sitv = setInterval(function () {
                 $.ajax({
                     url: '/paint/getMsg/',
@@ -41,6 +41,9 @@
                             const ori = document.getElementById("msg_div").innerHTML;
                             const msg = json['msg']
                             document.getElementById("msg_div").innerHTML = ori + "<p>" + msg + "</p>"
+                        }
+                        if (flag === 'over...') {
+                            clearInterval(sitv)
                         }
 
                     }
@@ -89,22 +92,25 @@
             };
         }
 
+
     </script>
-{#    <script>#}
-{#        $.ajax({#}
-{#            url: '/paint/download/',#}
-{#            type: 'get',#}
-{#            success: function (res) {#}
-{#                a = document.createElement('a')#}
-{#                a.href = res.url#}
-{#                a.setAttribute('download', 'result.xlsx')#}
-{#                a.click()#}
-{#            },#}
-{#            error: function () {#}
-{#                alert('下载失败，请联系管理员')#}
-{#            }#}
-{#        })#}
-{#    </script>#}
+    {#    <script>#}
+    {#        $.ajax({#}
+    {#            url: '/paint/download/',#}
+    {#            type: 'get',#}
+    {#            success: function (res) {#}
+    {#                a = document.createElement('a')#}
+    {#                a.href = res.url#}
+    {#                a.setAttribute('download', 'result.xlsx')#}
+    {#                a.click()#}
+    {#            },#}
+    {#            error: function () {#}
+    {#                alert('下载失败，请联系管理员')#}
+    {#            }#}
+    {#        })#}
+    {#    </script>#}
+
+
 
     <title>stylized-neural-painting-oil</title>
 
@@ -264,7 +270,7 @@
                           ry="2"></rect>
                     <polyline points="11 3 11 11 14 8 17 11 17 3"></polyline>
                 </svg>
-                8位图形生成
+                8bit图形生成
             </a>
 
         </div>
