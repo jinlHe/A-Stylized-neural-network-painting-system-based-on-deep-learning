@@ -19,9 +19,10 @@ from django.urls import path
 
 from bit8 import views
 
-
 urlpatterns = [
 
     path('main/', views.main),
+    path('getargs/', views.getArgs),
+    path('getMsg/', views.getMsg)
 
 ]
