@@ -67,7 +67,7 @@ def getArgs(request):
         png_name = get_png_name(png_list)
         gif_name = png_list[0].split('_')[0]
         gif_name = gif_name + '.gif'
-        png2gif(source=args.output_dir, gifname=gif_name, time=0.05)
+        png2gif(source=args.output_dir, gifname=gif_name, time=0.01)
         gif_path = '/static/output/' + gif_name
         png_path = '/static/output/' + png_name
         myinfo = info.objects.get(id=1)
