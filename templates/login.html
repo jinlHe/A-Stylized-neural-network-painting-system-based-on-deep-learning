@@ -1,4 +1,3 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!DOCTYPE html>
 <head>
@@ -308,7 +307,7 @@
             <div class='icon'>
                 <img src="/static/png/5df4a6cf498ab.png" alt=""/>
             </div>
-            <input name="username" id="username" placeholder='用户名' maxlength="16" type='text' autocomplete="on"
+            <input required name="username" id="username" placeholder='用户名' maxlength="16" type='text' autocomplete="on"
                    value=""/>
             <div class='validation'>
 
@@ -318,7 +317,8 @@
             <div class='icon'>
                 <img alt="" src='/static/png/5df4a6dc04f4f.png'>
             </div>
-            <input name="password" id="userpwd" placeholder='密码' maxlength="16" type='password' autocomplete="off" >
+            <input required name="password" id="userpwd" placeholder='密码' maxlength="16" type='password'
+                   autocomplete="off">
             <div class='validation'>
 
             </div>
@@ -332,8 +332,8 @@
 
              </div>
          </div> -->
-        <div class='login_fields__submit' >
-            <input type='button' value='登录'>
+        <div class='login_fields__submit'>
+            <input type='button' value='登录' onclick="login()">
         </div>
     </div>
     <div class='success'>
@@ -367,11 +367,13 @@
             vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
 
+
 </script>
 <script id="fs" type="x-shader/x-fragment">
         uniform sampler2D map; uniform vec3 fogColor; uniform float fogNear; uniform float fogFar; varying vec2 vUv; void main() {
             float depth = gl_FragCoord.z / gl_FragCoord.w; float fogFactor = smoothstep(fogNear, fogFar, depth); gl_FragColor = texture2D(map, vUv); gl_FragColor.w *= pow(gl_FragCoord.z, 20.0); gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
         }
+
 
 
 </script>
@@ -486,42 +488,44 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $(".login_fields__submit").click(function(){
-
-            var username=$("#username").val();
-            if(!username){
+        function login() {
+            var username = $("#username").val();
+            if (!username) {
                 alert("请输入用户名")
                 return;
             }
-            var clientpwd=$("#userpwd").val();
-            if(!clientpwd){
+            var clientpwd = $("#userpwd").val();
+            if (!clientpwd) {
                 alert("请输入密码")
                 return;
             }
+            /*
+            $.post("/user/login_view/", $("[name]").serialize(), function (data) {
 
-            $.post("/user/login_view/",$("[name]").serialize(),function(data){
-                if(data.userid){
-                    if(data.role==0){
-                        window.location.href = "adminindex.html"
-                    }else if(data.role==1){
-                        window.location.href ="teacherindex.html"
-                    }else if(data.role==2){
-						 window.location.href ="studentcourse.html"
-					}
 
-                }else{
-                    alert("用户名密码输入错误");
+            }, "json");
+
+             */
+            var formData = new FormData();
+            formData.append("username", username);
+            formData.append("password", clientpwd)
+            $.ajax({
+                type: "post",
+                url: "/user/login_view/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    window.location.href = 'http://127.0.0.1:8000/'
+                    console.log('跳转成功')
                 }
 
-            },"json");
+            })
 
-        });
-
-
+        };
 
 
-    });
+
 </script>
 
 </body>

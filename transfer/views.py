@@ -1,6 +1,7 @@
 import argparse
 
 import imageio
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render
 from torch import optim
@@ -54,8 +55,11 @@ def getArgs(request):
             photo=photo,  # 拿到图片
             name=photo.name  # 拿到图片的名字
         )
+        torch.cuda.empty_cache()  # 防止显存不足
         new_img.save()
-        args = setArgs(renderer=renderer, vector_file=vector_file, style_img_path=style_img_path, content_img_path=content_img_path, transfer_mode=transfer_mode, canvas_color=canvas_color, renderer_checkpoint_dir=renderer_checkpoint_dir)
+        args = setArgs(renderer=renderer, vector_file=vector_file, style_img_path=style_img_path,
+                       content_img_path=content_img_path, transfer_mode=transfer_mode, canvas_color=canvas_color,
+                       renderer_checkpoint_dir=renderer_checkpoint_dir)
         pt = NeuralStyleTransfer(args=args)
         list = info.objects.filter(id=1)
         if len(list) == 0:
@@ -73,8 +77,8 @@ def getArgs(request):
         myinfo.msg = ""
         myinfo.save()
         content = {
-                'gif_path': png_path
-            }
+            'gif_path': png_path
+        }
         # return render(request, 'stylized-neural-painting-oil.htm', content)
         return JsonResponse(content, safe=False)
     else:
@@ -154,7 +158,8 @@ def optimize_x(pt, args):
                args.style_img_path.split('\\')[-1][:-4] + '.png', pt.final_rendered_images[-1])
 
 
-def setArgs(renderer, vector_file, style_img_path, content_img_path, transfer_mode, canvas_color, renderer_checkpoint_dir):
+def setArgs(renderer, vector_file, style_img_path, content_img_path, transfer_mode, canvas_color,
+            renderer_checkpoint_dir):
     parser = argparse.ArgumentParser(description='STYLIZED NEURAL PAINTING')
     parser.add_argument('--renderer', type=str, default=renderer, metavar='str',
                         help='renderer: [watercolor, markerpen, oilpaintbrush, rectangle (default oilpaintbrush)')
@@ -185,3 +190,8 @@ def setArgs(renderer, vector_file, style_img_path, content_img_path, transfer_mo
                         help='dir to save style transfer results (default: ./output)')
     args = parser.parse_args(args=[])
     return args
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'login.html')

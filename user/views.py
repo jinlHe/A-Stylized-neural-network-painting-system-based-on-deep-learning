@@ -1,6 +1,6 @@
 import django
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -22,20 +22,23 @@ def login_view(request):
         # 不存在则重定向登录页，让用户登录
         return render(request, 'login.html')
     elif request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        # username = request.POST['username']
+        # password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         print(username)
         print(password)
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
             django.contrib.auth.login(request, user)
-            if 'isSaved' in request.POST.keys():
-                request.session.set_expiry(60 * 60 * 24 * 7)
-            else:
-                request.session.set_expiry(0)
-                print("登陆成功")
+            request.session.set_expiry(0)
+            print("登陆成功")
             return HttpResponseRedirect("/")
         else:
             error = '用户不存在或用户密码输入错误!!'
             return render(request, 'login.html', locals())
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'login.html')

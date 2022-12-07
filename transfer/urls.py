@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('main/', views.main),
     path('getargs/', views.getArgs),
-    path('getMsg/', views.getMsg)
+    path('getMsg/', views.getMsg),
+    path('logout/', views.logout_view)
 
 ]

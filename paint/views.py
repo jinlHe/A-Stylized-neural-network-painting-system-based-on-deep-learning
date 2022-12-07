@@ -1,6 +1,8 @@
 import argparse
 import os.path
 import imageio
+from django.contrib.auth import logout
+
 from OilPainting import settings
 import torch.optim as optim
 from django.http import HttpResponse, JsonResponse
@@ -55,6 +57,7 @@ def getArgs(request):
         if len(list) == 0:
             info.objects.create(current=0, total=0, msg="begin...")
         optimize_x(pt)
+        print(device)
         myinfo = info.objects.get(id=1)
         myinfo.msg = "over..."
         myinfo.save()
@@ -70,6 +73,7 @@ def getArgs(request):
         myinfo = info.objects.get(id=1)
         myinfo.msg = ""
         myinfo.save()
+        torch.cuda.empty_cache()  # 防止显存不足
         if output_type == 'gif':
             content = {
                 'gif_path': gif_path
@@ -122,6 +126,7 @@ def get_png_name(png_list):
 
 
 def optimize_x(pt):
+    print(device)
     pt._load_checkpoint()
     pt.net_G.eval()
     myinfo = info.objects.get(id=1)
@@ -216,3 +221,8 @@ def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint
                         help='dir to save painting results (default: ./output)')
     args = parser.parse_args(args=[])
     return args
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'login.html')
