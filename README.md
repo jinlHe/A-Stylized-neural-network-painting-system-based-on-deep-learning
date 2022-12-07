@@ -76,22 +76,18 @@ python demo.py --img_path ./test_images/diamond.jpg --canvas_color 'black' --max
 
 ![](./gallery/nst.jpg)
 
-- First, you need to generate painting and save stroke parameters to output dir
+- 首先，生成绘画并将笔画参数保存到输出目录
 
 ```bash
 python demo.py --img_path ./test_images/sunflowers.jpg --canvas_color 'white' --max_m_strokes 500 --m_grid 5 --renderer oilpaintbrush --renderer_checkpoint_dir checkpoints_G_oilpaintbrush --output_dir ./output
 ```
 
-- Then, choose a style image and run style transfer on the generated stroke parameters
+- 然后，选择一个风格图像，并在生成的笔画参数上运行style transfer 
 
 ```bash
 python demo_nst.py --renderer oilpaintbrush --vector_file ./output/sunflowers_strokes.npz --style_img_path ./style_images/fire.jpg --content_img_path ./test_images/sunflowers.jpg --canvas_color 'white' --renderer_checkpoint_dir checkpoints_G_oilpaintbrush --transfer_mode 1
 ```
-
-You may also specify the --transfer_mode to switch the transfer mode (0: transfer color only, 1: transfer both color and texture)
-
-Also, please note that in the current version, the style transfer are not supported by the progressive rendering mode. We will be working on this feature in the near future. 
-
+你也可以指定——transfer_mode来切换transfer模式(0:只传输颜色，1:同时传输颜色和纹理)
 ### 功能三：生成8-bit图形作品
 
 
