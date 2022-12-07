@@ -54,6 +54,7 @@ def getArgs(request):
             photo=photo,  # 拿到图片
             name=photo.name  # 拿到图片的名字
         )
+        torch.cuda.empty_cache()  # 防止显存不足
         new_img.save()
         args = setArgs(renderer=renderer, vector_file=vector_file, style_img_path=style_img_path, content_img_path=content_img_path, transfer_mode=transfer_mode, canvas_color=canvas_color, renderer_checkpoint_dir=renderer_checkpoint_dir)
         pt = NeuralStyleTransfer(args=args)

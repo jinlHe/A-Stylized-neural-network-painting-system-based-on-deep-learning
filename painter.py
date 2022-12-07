@@ -16,7 +16,6 @@ from paint.models import info
 # torch.cuda.current_device()
 
 # Decide which device we want to run on
-map_location = torch.device('cpu')
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
@@ -71,7 +70,7 @@ class PainterBase():
             print('loading renderer from pre-trained checkpoint...')
             # load the entire checkpoint
             checkpoint = torch.load(os.path.join(
-                self.renderer_checkpoint_dir, 'last_ckpt.pt'), map_location='cpu')
+                self.renderer_checkpoint_dir, 'last_ckpt.pt'))
             # update net_G states
             self.net_G.load_state_dict(checkpoint['model_G_state_dict'])
             self.net_G.to(device)
