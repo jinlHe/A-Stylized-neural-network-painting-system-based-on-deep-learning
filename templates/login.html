@@ -373,9 +373,9 @@
             <input type='button' value='登录' onclick="login()">
         </div>
 
-    <div class="register_fields__submit">
-    <input type='button' value='注册' onclick="login()">
-    </div>
+        <div class="register_fields__submit">
+            <input type='button' value='注册' onclick="register()">
+        </div>
 
     <div class='success'>
     </div>
@@ -563,6 +563,10 @@
             })
 
         };
+
+        function register(){
+            window.location.href = 'http://127.0.0.1:8000/user/register/'
+        }
 
 
 
