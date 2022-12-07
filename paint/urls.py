@@ -23,6 +23,7 @@ from paint import views
 urlpatterns = [
 
     path('getargs/', views.getArgs),
-    path('getMsg/', views.getMsg)
+    path('getMsg/', views.getMsg),
+    path('logout/', views.logout_view)
 
 ]

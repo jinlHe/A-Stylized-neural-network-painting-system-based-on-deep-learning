@@ -1,6 +1,7 @@
 import argparse
 
 import imageio
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render
 from torch import optim
@@ -210,3 +211,8 @@ def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint
                         help='dir to save painting results (default: ./output)')
     args = parser.parse_args(args=[])
     return args
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'login.html')
