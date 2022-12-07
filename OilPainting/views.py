@@ -11,7 +11,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def main(request):
-    if request.user.is_authenticated:
+    if request.COOKIES.get('login') is not None:
         return render(request, 'stylized-neural-painting-oil.htm')
     else:
         return render(request, 'login.html')

@@ -309,6 +309,7 @@
             </div>
             <input required name="username" id="username" placeholder='用户名' maxlength="16" type='text' autocomplete="on"
                    value=""/>
+
             <div class='validation'>
 
             </div>
@@ -319,6 +320,7 @@
             </div>
             <input required name="password" id="userpwd" placeholder='密码' maxlength="16" type='password'
                    autocomplete="off">
+
             <div class='validation'>
 
             </div>
@@ -334,7 +336,9 @@
          </div> -->
         <div class='login_fields__submit'>
             <input type='button' value='登录' onclick="login()">
+            <input type='button' value='注册' onclick="register()">
         </div>
+
     </div>
     <div class='success'>
     </div>
@@ -515,14 +519,18 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (res) {
+                success: function () {
                     window.location.href = 'http://127.0.0.1:8000/'
-                    console.log('跳转成功')
                 }
 
             })
 
         };
+
+
+        function register(){
+            window.location.href = 'http://127.0.0.1:8000/user/register/'
+        }
 
 
 

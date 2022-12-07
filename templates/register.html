@@ -1,4 +1,3 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!DOCTYPE html>
 <head>
@@ -314,7 +313,6 @@
             <input name="username" id="username" placeholder='用户名' maxlength="16" type='text' autocomplete="on"
                    value=""/>
             <div class='validation'>
-
             </div>
         </div>
         <div class='register_fields__password'>
@@ -331,8 +329,7 @@
                 <img alt="" src='/static/png/5df4a6dc04f4f.png'>
             </div>
             <input name="password" id="userpwd2" placeholder='确认密码' maxlength="18" type='password' autocomplete="off" >
-            <div class='validation'>
-
+            <div class='validation' >
             </div>
         </div>
         <!-- <div class='register_fields__password'>
@@ -345,7 +342,7 @@
              </div>
          </div> -->
         <div class='register_fields__submit' >
-            <input type='button' value='注册'>
+            <input type='button' value='注册' onclick="register()">
         </div>
     </div>
     <div class='success'>
@@ -498,35 +495,54 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $(".register_fields__submit").click(function(){
-
-            var username=$("#username").val();
-            if(!username){
+        function register() {
+            var username = $("#username").val();
+            if (!username) {
                 alert("请输入用户名")
                 return;
             }
-            var clientpwd=$("#userpwd").val();
-            if(!clientpwd){
+            var clientpwd = $("#userpwd").val();
+            if (!clientpwd) {
                 alert("请输入密码")
                 return;
             }
 
-            $.post("/user/register_view/",$("[name]").serialize(),function(data){
-                if(data.id){f
-                    return render(request, 'stylized-neural-painting-oil.htm')
-                }else{
-                    alert("用户名密码输入错误");
+            var clientpwd2 = $("#userpwd2").val();
+            if (!clientpwd2) {
+                alert("请再次输入密码")
+                return;
+            }
+            if(clientpwd !== clientpwd2) {
+                alert("两次密码不相同,请重新输入")
+                return;
+            }
+            var formData = new FormData();
+            formData.append("username", username);
+            formData.append("password", clientpwd);
+            formData.append("password2", clientpwd2)
+            $.ajax({
+                type: "post",
+                url: "/user/register_view/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    //注册成功跳入登陆界面
+                        if(res.status === 1){
+                            alert("用户名已存在 ，请重新输入!")
+                        }else {
+                            window.location.href = 'http://127.0.0.1:8000/'
+                        }
                 }
 
-            },"json");
+            })
 
-        });
-
-
+        };
 
 
-    });
+
+
+
 </script>
 
 </body>
