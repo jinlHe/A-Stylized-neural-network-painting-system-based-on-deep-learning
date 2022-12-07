@@ -69,7 +69,7 @@ def getArgs(request):
         myinfo.msg = "over..."
         myinfo.save()
 
-        png_name = content_img + '_style_transfer_' + photo.name + '.png'
+        png_name = content_img + '_input_style_transfer_' + photo.name.split('.')[0] + '.png'
         print(png_name)
         png_path = '/static/output/' + png_name
 
