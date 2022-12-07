@@ -147,8 +147,8 @@
 
         body .login .disclaimer {
             position: absolute;
-            bottom: 20px;
-            left: 35px;
+            bottom: -25px;
+            left: 7px;
             width: 300px;
         }
 
@@ -167,7 +167,7 @@
 
         body .disclaimer p {
             text-align: center;
-            font-size: 13px;
+            font-size: 17px;
         }
 
         body .login_fields .icon {
@@ -256,6 +256,41 @@
             transition-duration: .2s;
         }
 
+        body .register_fields__submit {
+            position: relative;
+            top: 100px;
+            left: 270px;
+            width: 80%;
+            right: 0;
+            margin: auto;
+        }
+        body .register_fields__submit input {
+            background: transparent;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            border: 2px solid transparent;
+            -webkit-transition-property: background, color;
+            transition-property: background, color;
+            -webkit-transition-duration: .2s;
+            transition-duration: .2s;
+        }
+
+        body .register_fields__submit input:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        body .register_fields__submit input:hover {
+            color: white;
+            background: #4FA1D9;
+            cursor: pointer;
+            -webkit-transition-property: background, color;
+            transition-property: background, color;
+            -webkit-transition-duration: .2s;
+            transition-duration: .2s;
+        }
+
         /* Color Schemes */
         .love {
             position: absolute;
@@ -293,6 +328,8 @@
         .brand img {
             width: 30px;
         }
+
+
     </style>
 
 </head>
@@ -335,7 +372,11 @@
         <div class='login_fields__submit'>
             <input type='button' value='登录' onclick="login()">
         </div>
+
+    <div class="register_fields__submit">
+    <input type='button' value='注册' onclick="login()">
     </div>
+
     <div class='success'>
     </div>
     <div class='disclaimer'>
@@ -343,7 +384,6 @@
             欢迎来到智能AI绘画系统
         </p>
     </div>
-</div>
 <div class='authent'>
     <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
         <div class="loader-inner ball-clip-rotate-multiple">
