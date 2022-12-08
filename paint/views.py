@@ -52,11 +52,11 @@ def getArgs(request):
         photo_path = os.path.join(settings.MEDIA_ROOT, 'photos', photo.name)
         args = setArgs(photo_path=photo_path, canvas_color=canvas_color, max_strokes=max_strokes, renderer=renderer,
                        renderer_checkpoint_dir=renderer_checkpoint_dir)
-        pt = ProgressivePainter(args=args)
+        pt = Painter(args=args)
         list = info.objects.filter(id=1)
         if len(list) == 0:
             info.objects.create(current=0, total=0, msg="begin...")
-        optimize_x(pt)
+        optimize_x(pt,args)
         print(device)
         myinfo = info.objects.get(id=1)
         myinfo.msg = "over..."
@@ -67,7 +67,7 @@ def getArgs(request):
         png_name = get_png_name(png_list)
         gif_name = png_list[0].split('_')[0]
         gif_name = gif_name + '.gif'
-        png2gif(source=args.output_dir, gifname=gif_name, time=0.01)
+        png2gif(source=args.output_dir, gifname=gif_name, time=0.05)
         gif_path = '/static/output/' + gif_name
         png_path = '/static/output/' + png_name
         myinfo = info.objects.get(id=1)
@@ -125,69 +125,57 @@ def get_png_name(png_list):
     return png_name
 
 
-def optimize_x(pt):
-    print(device)
+def optimize_x(pt,args):
+
     pt._load_checkpoint()
     pt.net_G.eval()
+
+    pt.initialize_params()
+    pt.x_ctt.requires_grad = True
+    pt.x_color.requires_grad = True
+    pt.x_alpha.requires_grad = True
+    utils.set_requires_grad(pt.net_G, False)
+
+    pt.optimizer_x = optim.RMSprop([pt.x_ctt, pt.x_color, pt.x_alpha], lr=pt.lr)
+
     myinfo = info.objects.get(id=1)
-    myinfo.current = 0
-    myinfo.total = 0
-    myinfo.msg = 'begin drawing...'
+    myinfo.msg = 'begin to draw...'
     myinfo.save()
-    print('begin drawing...')
-
-    PARAMS = np.zeros([1, 0, pt.rderr.d], np.float32)
-
-    if pt.rderr.canvas_color == 'white':
-        CANVAS_tmp = torch.ones([1, 3, 128, 128]).to(device)
-    else:
-        CANVAS_tmp = torch.zeros([1, 3, 128, 128]).to(device)
-
-    for pt.m_grid in range(1, pt.max_divide + 1):
-
-        pt.img_batch = utils.img2patches(pt.img_, pt.m_grid).to(device)
-        pt.G_final_pred_canvas = CANVAS_tmp
-
-        pt.initialize_params()
-        pt.x_ctt.requires_grad = True
-        pt.x_color.requires_grad = True
-        pt.x_alpha.requires_grad = True
-        utils.set_requires_grad(pt.net_G, False)
-
-        pt.optimizer_x = optim.RMSprop([pt.x_ctt, pt.x_color, pt.x_alpha], lr=pt.lr, centered=True)
-
-        pt.step_id = 0
-        for pt.anchor_id in range(0, pt.m_strokes_per_block):
-            pt.stroke_sampler(pt.anchor_id)
+    print('begin to draw...')
+    pt.step_id = 0
+    for pt.anchor_id in range(0, pt.m_strokes_per_block):
+        pt.stroke_sampler(pt.anchor_id)
+        iters_per_stroke = 20
+        if pt.anchor_id == pt.m_strokes_per_block - 1:
             iters_per_stroke = 40
-            for i in range(iters_per_stroke):
-                pt.G_pred_canvas = CANVAS_tmp
+        for i in range(iters_per_stroke):
 
-                # update x
-                pt.optimizer_x.zero_grad()
+            pt.optimizer_x.zero_grad()
 
-                pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1)
-                pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1)
+            pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
+            pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1)
+            pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1)
 
-                pt._forward_pass()
-                pt._drawing_step_states()
-                pt._backward_x()
+            if args.canvas_color == 'white':
+                pt.G_pred_canvas = torch.ones([args.m_grid ** 2, 3, 128, 128]).to(device)
+            else:
+                pt.G_pred_canvas = torch.zeros(args.m_grid ** 2, 3, 128, 128).to(device)
 
-                pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1)
-                pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1)
+            pt._forward_pass()
+            pt._drawing_step_states()
+            pt._backward_x()
+            pt.optimizer_x.step()
 
-                pt.optimizer_x.step()
-                pt.step_id += 1
+            pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
+            pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1)
+            pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1)
 
-        v = pt._normalize_strokes(pt.x)
-        PARAMS = np.concatenate([PARAMS, np.reshape(v, [1, -1, pt.rderr.d])], axis=1)
-        CANVAS_tmp = pt._render(PARAMS)[-1]
-        CANVAS_tmp = utils.img2patches(CANVAS_tmp, pt.m_grid + 1, to_tensor=True).to(device)
+            pt.step_id += 1
 
-    pt._save_stroke_params(PARAMS)
-    pt.final_rendered_images = pt._render(PARAMS)
+    v = pt.x.detach().cpu().numpy()
+    pt._save_stroke_params(v)
+    v_n = pt._normalize_strokes(pt.x)
+    pt.final_rendered_images = pt._render_on_grids(v_n)
     pt._save_rendered_images()
 
 
@@ -203,8 +191,8 @@ def setArgs(photo_path, canvas_color, max_strokes, renderer, renderer_checkpoint
                         help='size of the canvas for stroke rendering')
     parser.add_argument('--max_m_strokes', type=int, default=max_strokes, metavar='str',
                         help='max number of strokes (default 500)')
-    parser.add_argument('--max_divide', type=int, default=5, metavar='N',
-                        help='divide an image up-to max_divide x max_divide patches (default 5)')
+    parser.add_argument('--m_grid', type=int, default=5, metavar='N',
+                        help='divide an image to m_grid x m_grid patches (default 5)')
     parser.add_argument('--beta_L1', type=float, default=1.0,
                         help='weight for L1 loss (default: 1.0)')
     parser.add_argument('--with_ot_loss', action='store_true', default=False,
